@@ -117,8 +117,8 @@ def print_nicer(state):
     global printCount
     printCount+=1
 
-    if printCount == 5:
-        input("Press Enter to continue...")
+    #if printCount == 5:
+   #     input("Press Enter to continue...")
 
     #print("The state: ",state)
     print()
@@ -164,6 +164,7 @@ def make_tree(x, par):
     #if x.data == [1,1,1,1]:
         goalReached = True
         print_nicer(x.data)
+        print("Number of moves: ",printCount)
 
         
         
