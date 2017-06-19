@@ -12,8 +12,13 @@
 # Due date: 6-21
 #
 
+
+goalReached = False
+printCount = 0
+
 import numpy as np
 import sys
+from pprint import pprint
 
 class Tree:
     def __init__(self, data, parent = None, farmer=None, fox=None, goose=None, grain=None):
@@ -107,17 +112,65 @@ def eval_state(array):
     #Else
     return False
 
+def print_nicer(state):
+    
+    global printCount
+    printCount+=1
+
+    if printCount == 5:
+        input("Press Enter to continue...")
+
+    #print("The state: ",state)
+    print()
+    print("--------------------")
+    print("--------------------")
+    print()
+    print("Left side:")
+
+    if state[0] == 0:
+        print("Farmer")
+    if state[1] == 0:
+        print("Fox")
+    if state[2] == 0:
+        print("Goose")
+    if state[3] == 0:
+        print("Grain")
+    print()
+    print("~~~~~~~~~~~~~~~~~~~~")
+    print()
+    print("Right side:")
+
+    if state[0] == 1:
+        print("Farmer")
+    if state[1] == 1:
+        print("Fox")
+    if state[2] == 1:
+        print("Goose")
+    if state[3] == 1:
+        print("Grain")    
+    print("--------------------")    
+    print("--------------------")    
+    
+
 
 def make_tree(x, par):
     
+    #print (x.data)
+    
+    global goalReached
     
     
     if np.array_equal(x.data, [1,1,1,1]):
     #if x.data == [1,1,1,1]:
-        print("Hooray!")
-        return x
-    else:
+        goalReached = True
+        print_nicer(x.data)
 
+        
+        
+        
+        return x
+    elif goalReached == False:
+        print_nicer(x.data)
         farmer = Tree(x.data[:])
         farmer.parent = x
     
@@ -173,7 +226,8 @@ def make_tree(x, par):
                         Tree._insertGrain(x,grain)
          
                         grain.parent = grain
-                        make_tree(grain, 4)         
+                        make_tree(grain, 4)   
+          
 
 def create_root():
 
@@ -187,8 +241,9 @@ def main():
     #while x.data != goal:
     x = make_tree(x, 0)
     
+    #print (x.data)
 
-    print ("hello world")
+    #print ("hello world")
 
 main()
 
