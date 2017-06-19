@@ -14,17 +14,46 @@
 
 import numpy as np
 import sys
-from enum import Enum
 
 class Tree:
-    def __init__(self, data, grandpa=None, isValid=True , farmer=None, fox=None, goose=None, grain=None):
-        self.grandpa = grandpa
+    def __init__(self, data, farmer=None, fox=None, goose=None, grain=None):
         self.data = data
-        self.isValid = isValid
         self.farmer = farmer
         self.fox = fox
         self.goose = goose
-        self.grain = grain   
+        self.grain = grain
+
+    def _insertFarmer(self, newNode):
+        if self.farmer == None:
+            self.farmer = Tree(newNode)
+        else:
+            t = Tree(newNode)
+            t.farmer = self.farmer
+            self.farmer = t
+
+    def _insertFox(self, newNode):
+        if self.fox == None:
+            self.fox = Tree(newNode)
+        else:
+            t = Tree(newNode)
+            t.fox = self.fox
+            self.fox = t
+
+    def _insertGoose(self, newNode):
+        if self.goose == None:
+            self.goose = Tree(newNode)
+        else:
+            t = Tree(newNode)
+            t.goose = self.goose
+            self.goose = t
+
+    def _insertGrain(self, newNode):
+        if self.grain == None:
+            self.grain = Tree(newNode)
+        else:
+            t = Tree(newNode)
+            t.grain = self.grain
+            self.grain = t
 
     def __str__(self):
         return str(self.data) 
@@ -70,191 +99,39 @@ def eval_state(array):
     #IF STATE IS IN LEGAL STATES
     for list in legalStates:
 
-       # print(list)
-        
-        
-        #print(array)
-
-
+       # print(list
+        #print(array
         if np.array_equal(list,array):
             return True
-       # if np.all(list) == np.all(array):
-       #     print ("True")
-       #     return True
-
     #Else
-    #print("Returned false")
     return False
+
+
+def make_tree(x):
+    
+    farmer = np.copy
+    
+    
+    
 
 def create_root():
 
     x = Tree ([0,0,0,0])
-
     return x
 
-
-
-
-def go_left(x):
-    
-    #Create boat, Flip farmer / put farmer on boat
-    
-    #Farmer
-    boat = Tree(x.data[:])
-    
-    if boat.data[0] == 0:    
-        boat.data[0] = flip_val(boat.data[0])
-
-    if eval_state(boat.data) == False:
-        boat.isValid = False
-        
-    #print(boat.data)
-    #Create next level of nodes, with flipped values
-    
-    #Fox
-    Fox = Tree(boat.data[:])
-    if Fox.data[0] == 0:    
-        Fox.data[1] = flip_val(Fox.data[1])
-
-    if eval_state(Fox.data) == False:
-        Fox.isValid = False
-   
-    #Goose
-    Goose = Tree(boat.data[:])
-    if Goose.data[0] == 0:    
-        Goose.data[2] = flip_val(Goose.data[2])
-
-    if eval_state(Goose.data) == False:
-        Goose.isValid = False
-    
-    #Grain
-    Grain = Tree(boat.data[:])
-    if Grain.data[0] == 0:    
-        Grain.data[3] = flip_val(Grain.data[3])
-
-    if eval_state(Grain.data) == False:
-        Grain.isValid = False    
-
-
-    #Link level. #boat == farmer
-    ret = Tree(x.data, boat, Fox, Goose, Grain)
-
-    return ret
-
-
-def go_right(x):
-
-    #Create boat, Flip farmer / put farmer on boat
-    
-    #Farmer
-    boat = Tree(x.data[:])
-    
-    if boat.data[0] == 0:    
-        boat.data[0] = flip_val(boat.data[0])
-
-    if eval_state(boat.data) == False:
-        boat.isValid = False
-        
-    #print(boat.data)
-    #Create next level of nodes, with flipped values
-    
-    #Fox
-    Fox = Tree(boat.data[:])
-    if Fox.data[0] == 0:    
-        Fox.data[1] = flip_val(Fox.data[1])
-
-    if eval_state(Fox.data) == False:
-        Fox.isValid = False
-   
-    #Goose
-    Goose = Tree(boat.data[:])
-    if Goose.data[0] == 0:    
-        Goose.data[2] = flip_val(Goose.data[2])
-
-    if eval_state(Goose.data) == False:
-        Goose.isValid = False
-    
-    #Grain
-    Grain = Tree(boat.data[:])
-    if Grain.data[0] == 0:    
-        Grain.data[3] = flip_val(Grain.data[3])
-
-    if eval_state(Grain.data) == False:
-        Grain.isValid = False    
-
-
-    #Link level. #boat == farmer
-    ret = Tree(x.data, boat, Fox, Goose, Grain)
-
-    return ret
-    
-
-
-def addNode(x):
-
-        print("It")
-        print (x)
-        # Evaluate each child
-        # Recursively go through all children
-
-        #Farmer
-        if (x.farmer):
-            if x.farmer.isValid == True:
-                
-         
-                x.farmer = add_level(x.farmer)
-                
-                x.farmer = addNode(x.farmer)
-        #Fox
-        if(x.fox):
-            if x.fox.isValid == True:
-               
-                x.fox = add_level(x.fox)
-                x.fox = addNode(x.fox)
-
-       # print (eval_state(x.data))
-       # print_tree(x.fox)
-    
-        #print (x.fox)
-        if(x.goose):
-            if x.goose.isValid == True:
-               
-                x.goose = add_level(x.goose)
-                x.goose = addNode(x.goose)
-       
-        #print (eval_state(x.data))
-        #print_tree(x.goose)
-
-        if(x.grain):
-            if x.grain.isValid == True:
-                x.grain = add_level(x.grain)
-                x = addNode(x.grain)
-
-        #print (eval_state(x.data))
-        #print_tree(x.grain)
-
 def main():
-
     
-    #Goal node
-    goal = [1,1,1,1]
-    #Starting node
-    
-    # x = Tree((0,0,0,0), Tree((1,0,1,0)), Tree((0,0,1,0)), Tree((1,1,1,0)))
-
-    # Create a tree with root node
     x = create_root()
-
-    # While not done, add a level
-    # 
-    x = add_level(x)
-    #print(x)
-    print(x.farmer.isValid)
+    goal = [1,1,1,1]
 
     #while x.data != goal:
-        #print(x)
-    print ("hello")
-    add_level(x, 1)
+    make_tree(x)
+            
+    
+
+
+    
+    print ("hello world")
 
 main()
 
