@@ -17,7 +17,7 @@ import sys
 
 class Tree:
     def __init__(self, data, parent = None, farmer=None, fox=None, goose=None, grain=None):
-        self.parent = self
+        parent = self
         self.data = data
         self.farmer = farmer
         self.fox = fox
@@ -108,74 +108,73 @@ def eval_state(array):
     return False
 
 
-def make_tree(x):
-    
-   # x.parent = x.data
-    
-    #x.parent = x.data #Save the parent
-    farmer = Tree(x.data[:])
-    print("Parent")
-    print(x.parent.parent.data)
+def make_tree(x, par):
     
     
-    farmer.data[0] = flip_val(farmer.data[0])
-    #Flips the farmer. The farmer can go across alone!
+    
+    if np.array_equal(x.data, [1,1,1,1]):
+    #if x.data == [1,1,1,1]:
+        print("Hooray!")
+        return x
+    else:
 
-    if eval_state(farmer.data) == True:
-
-        print("Here")
-        print(farmer.parent.parent.data)
-        print(farmer.data)
-
-        Tree._insertFarmer(x,farmer)
-        #farmer.parent = farmer
-        print("Inserted Farmer")
+        farmer = Tree(x.data[:])
+        farmer.parent = x
+    
+        farmer.data[0] = flip_val(farmer.data[0])
+        #Flips the farmer. The farmer can go across alone!
+        if par != 1:
+            if eval_state(farmer.data) == True:
         
+                Tree._insertFarmer(x,farmer)
+                #farmer.parent = farmer
+         
         
-        make_tree(farmer)
+                make_tree(farmer, 1)
 
-    fox = Tree(farmer.data[:])
-    fox.data[1] = flip_val(fox.data[1])
+        fox = Tree(farmer.data[:])
+        fox.parent = x
+        fox.data[1] = flip_val(fox.data[1])
 
-    if x.data[0] == x.data[1]: #Only ferry if farmer is on same side
-        if eval_state(fox.data) == True:
+        if par != 2:
+    
+            if x.data[0] == x.data[1]: #Only ferry if farmer is on same side
+                if eval_state(fox.data) == True:
+
+                    Tree._insertFox(x,fox)
              
-            Tree._insertFox(x,fox)
-            print("Inserted Fox")
-            print(fox.data)
-            fox.parent = fox
-            make_tree(fox)
+                   
+                    fox.parent = fox
+                    make_tree(fox, 2)
+             
+        goose = Tree(farmer.data[:])
+        goose.parent = x
+        goose.data[2] = flip_val(goose.data[2])
     
-    goose = Tree(farmer.data[:])
-    goose.data[2] = flip_val(goose.data[2])
-    
-
+        if par != 3:
+            if x.data[0] == x.data[2]: #Only ferry if farmer is on same side
         
+                if eval_state(goose.data) == True :
 
+                        Tree._insertGoose(x,goose)
+                       
+                        goose.parent = goose
+                        make_tree(goose, 3)    
 
-    if x.data[0] == x.data[2]: #Only ferry if farmer is on same side
-        
-        if eval_state(goose.data) == True :
-            
-            Tree._insertGoose(x,goose)
-            print("Inserted Goose")
-            print(goose.data)
-            goose.parent = goose
-            make_tree(goose)
-        
-    grain = Tree(farmer.data[:])
-    grain.data[3] = flip_val(grain.data[3])
+        grain = Tree(farmer.data[:])
+        grain.parent = x
+        grain.data[3] = flip_val(grain.data[3])
 
-    if x.data[0] == x.data[3]: #Only ferry if farmer is on same side
+        if par != 4:
+            if x.data[0] == x.data[3]: #Only ferry if farmer is on same side
         
-        if eval_state(grain.data) == True:
-            
-            Tree._insertGrain(x,grain)
-            print("Inserted grain")
-            print(grain.data)
-            grain.parent = grain
-            make_tree(grain)
- 
+                if eval_state(grain.data) == True:
+
+                        Tree._insertGrain(x,grain)
+         
+                        grain.parent = grain
+                        make_tree(grain, 4)         
+
 def create_root():
 
     x = Tree ([0,0,0,0])
@@ -184,15 +183,11 @@ def create_root():
 def main():
     
     x = create_root()
-    goal = [1,1,1,1]
 
     #while x.data != goal:
-    make_tree(x)
-            
+    x = make_tree(x, 0)
     
 
-
-    
     print ("hello world")
 
 main()
