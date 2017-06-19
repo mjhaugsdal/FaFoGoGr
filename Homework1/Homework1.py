@@ -111,73 +111,70 @@ def eval_state(array):
 def make_tree(x):
     
    # x.parent = x.data
-    print("Parent")
-    print (x.parent)
+    
     #x.parent = x.data #Save the parent
     farmer = Tree(x.data[:])
-
+    print("Parent")
+    print(x.parent.parent.data)
     
     
     farmer.data[0] = flip_val(farmer.data[0])
     #Flips the farmer. The farmer can go across alone!
-#if np.array_equal(list,array):
-    if np.array_equal(farmer.data, farmer.parent):
-        if eval_state(farmer.data) == True:
 
-            print("Here")
-            print(farmer.parent)
-            print(farmer.data)
+    if eval_state(farmer.data) == True:
 
-            Tree._insertFarmer(x,farmer)
-            #farmer.parent = farmer
-            print("Inserted Farmer")
+        print("Here")
+        print(farmer.parent.parent.data)
+        print(farmer.data)
+
+        Tree._insertFarmer(x,farmer)
+        #farmer.parent = farmer
+        print("Inserted Farmer")
         
         
-            make_tree(farmer)
+        make_tree(farmer)
 
     fox = Tree(farmer.data[:])
     fox.data[1] = flip_val(fox.data[1])
-    if np.array_equal(fox.data, fox.parent):
-        if x.data[0] == x.data[1]: #Only ferry if farmer is on same side
-            if eval_state(fox.data) == True:
+
+    if x.data[0] == x.data[1]: #Only ferry if farmer is on same side
+        if eval_state(fox.data) == True:
              
-                Tree._insertFox(x,fox)
-                print("Inserted Fox")
-                print(fox.data)
-                fox.parent = fox
-                make_tree(fox)
+            Tree._insertFox(x,fox)
+            print("Inserted Fox")
+            print(fox.data)
+            fox.parent = fox
+            make_tree(fox)
     
     goose = Tree(farmer.data[:])
     goose.data[2] = flip_val(goose.data[2])
     
-    print("Same?")
-    print(goose.data)
-    print(goose.parent)
-    
-    if np.array_equal(goose.data, goose.parent):
-        print("Yes!")
-        if x.data[0] == x.data[2]: #Only ferry if farmer is on same side
+
         
-            if eval_state(goose.data) == True :
+
+
+    if x.data[0] == x.data[2]: #Only ferry if farmer is on same side
+        
+        if eval_state(goose.data) == True :
             
-                Tree._insertGoose(x,goose)
-                print("Inserted Goose")
-                print(goose.data)
-                goose.parent = goose
-                make_tree(goose)
+            Tree._insertGoose(x,goose)
+            print("Inserted Goose")
+            print(goose.data)
+            goose.parent = goose
+            make_tree(goose)
         
     grain = Tree(farmer.data[:])
     grain.data[3] = flip_val(grain.data[3])
-    if np.array_equal(grain.data, grain.parent):
-        if x.data[0] == x.data[3]: #Only ferry if farmer is on same side
+
+    if x.data[0] == x.data[3]: #Only ferry if farmer is on same side
         
-            if eval_state(grain.data) == True:
+        if eval_state(grain.data) == True:
             
-                Tree._insertGrain(x,grain)
-                print("Inserted grain")
-                print(grain.data)
-                grain.parent = grain
-                make_tree(grain)
+            Tree._insertGrain(x,grain)
+            print("Inserted grain")
+            print(grain.data)
+            grain.parent = grain
+            make_tree(grain)
  
 def create_root():
 
