@@ -117,15 +117,18 @@ def print_nicer(state):
     global printCount
     printCount+=1
 
-    #if printCount == 5:
-   #     input("Press Enter to continue...")
+    if printCount == 5:
+        input("Press Enter to continue...")
 
-    #print("The state: ",state)
+    print("Move #", printCount)
+ 
     print()
-    print("--------------------")
-    print("--------------------")
+    print("_________________________") 
+    print("_________________________") 
     print()
     print("Left side:")
+    print()
+    print()
 
     if state[0] == 0:
         print("Farmer")
@@ -135,11 +138,16 @@ def print_nicer(state):
         print("Goose")
     if state[3] == 0:
         print("Grain")
-    print()
-    print("~~~~~~~~~~~~~~~~~~~~")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("~~~~~~~ ____ ~~~~~~~~~~~")
+    print("~~~~~~~\    /~~~~~~~~~~~")
+    print("~~~~~~~~\  /~~~~~~~~~~~~")
+    print("~~~~~~~\_||__/~~~~~~~~~~")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~")
     print()
     print("Right side:")
-
+    print()
+    print()
     if state[0] == 1:
         print("Farmer")
     if state[1] == 1:
@@ -148,8 +156,10 @@ def print_nicer(state):
         print("Goose")
     if state[3] == 1:
         print("Grain")    
-    print("--------------------")    
-    print("--------------------")    
+    print()
+    print()
+    print("_________________________")  
+    print("_________________________")      
     
 
 
