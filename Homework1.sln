@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Homework1", "Homework1\Homework1.pyproj", "{B6988E88-2A5E-4442-AD4B-A19FAE9EC03D}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Homework", "Homework1\Homework.pyproj", "{B6988E88-2A5E-4442-AD4B-A19FAE9EC03D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +16,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21E4E2E8-54A0-4BA0-8130-B12173EE8E99}
 	EndGlobalSection
 EndGlobal
